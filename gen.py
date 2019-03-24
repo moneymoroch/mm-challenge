@@ -11,12 +11,13 @@ class MMChallenge:
    ''' Constructor '''
    def __init__(self):
       self.outfile = 'data.csv'
-      self.outsize = 10 # In MegaBytes
+      self.outsize = 100 # In Megabytes
       self.rowcount = 0
       self.firstrow = False
 
+
    ''' Simple function to generate a row of data in specified format '''
-   def generateRow(self, count, return_type='string'):
+   def generate_row(self, count, return_type='string'):
       string1 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
       string2 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
       data = [str(self.rowcount), str(random.randint(1,10)), string1, string2]
@@ -26,51 +27,57 @@ class MMChallenge:
       else:
          return ','.join(data)
 
+
    ''' Most Simple Implementation '''
-   def generateFile(self):
+   def simple_generate_file(self):
       ''' Open File and Use CSV Writer module'''
       with open(self.outfile, 'w') as csvfile:
          wtr = csv.writer(csvfile)
 
-         ''' If current file size less than desired size, generate and write to row '''
+         ''' If current file size less than desired size, generate data and write to row '''
          while (os.path.getsize(self.outfile)//2^20) < self.outsize:
-            wtr.writerow(self.generateRow(self.rowcount)) 
+            wtr.writerow(self.generate_row(self.rowcount)) 
             self.rowcount += 1
    
-   def generateFileInChunks(self):
-      ''' Open file and append string with new line '''
+
+   ''' Attempt to speed up writes by batching them ''' 
+   def generate_file_in_chunks(self):
       temp = ''
       with open(self.outfile, 'w') as file:
          while (os.path.getsize(self.outfile)//2**20) < self.outsize:
 
-            temp += self.generateRow(self.rowcount)
+            temp += self.generate_row(self.rowcount)
             self.rowcount += 1
             
             ''' After rowcount reaches threshold, make bulk write '''
-            if self.rowcount % 100000 == 0:
+            if self.rowcount % 10000 == 0:
                print('writing')
                file.write(temp)
                temp = ''
 
-   def pipeOutput(self):
+
+   ''' Function that iteratively loops to create data and pipes output to file '''
+   def generate_pipe_output(self):
 
       ''' Set stdout to file '''
       sys.stdout = open(self.outfile, 'w')
 
       ''' Loop until file is bigger than desired outside '''
       while (os.path.getsize(self.outfile)//2**20) < self.outsize:
-         print(self.generateRow(self.rowcount))
+         print(self.generate_row(self.rowcount))
          self.rowcount += 1
+      
+      ''' Reset STD OUT to normal default '''
+      sys.stdout = sys.__stdout__
       
 
             
+if __name__ == '__main__':
+   print("Generating File...")
+   start_time = time.time()
 
-      
+   mm = MMChallenge()
+   mm.generate_pipe_output()
 
-start_time = time.time()
-
-mm = MMChallenge()
-mm.pipeOutput()
-sys.stdout = sys.__stdout__
-print("--- %s seconds ---" % (time.time() - start_time))
+   print("--- %s seconds ---" % (time.time() - start_time))
 
