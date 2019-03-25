@@ -8,6 +8,8 @@ import itertools
 import csv
 import sys
 import multiprocessing
+
+''' Shared boolean among processes '''
 finished = multiprocessing.Value('i', False)
 
 class MMChallengeProcessing:
