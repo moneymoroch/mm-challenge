@@ -11,7 +11,7 @@ class MMChallenge:
    ''' Constructor '''
    def __init__(self):
       self.outfile = 'data.csv'
-      self.outsize = 10# In Megabytes
+      self.outsize = 1000# In Megabytes
       self.rowcount = 0
       self.firstrow = True
 
@@ -59,14 +59,12 @@ class MMChallenge:
             
             ''' After rowcount reaches threshold, make bulk write '''
             if self.rowcount % 10000 == 0:
-               print('Batch Writing')
+               #print('Batch Writing')
                file.write(temp)
                temp = ''
 
 
-   ''' Function that iteratively loops to create data and uses stdout to file.
-
-   '''
+   ''' Function that uses stdout to write to file. '''
    def generate_pipe_output(self):
 
       ''' Set stdout to file, anything printed will br written to file '''

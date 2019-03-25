@@ -14,12 +14,12 @@ class MMChallengeProcessing:
     def __init__(self):
         self.jobs = multiprocessing.Queue()
         self.outfile = 'data.csv'
-        self.outsize = 100 # MB
+        self.outsize = 1000 # MB
         self.file = open(self.outfile, 'w')
     
         self.start = 0
-        self.end = 20000
-        self.offset = 20000
+        self.end = 2000
+        self.offset = 2000
 
     ''' Function to generate row specified in document, returns string with newline '''
     def generateRow(self, count):
@@ -63,8 +63,8 @@ class MMChallengeProcessing:
     def run(self):
         t = multiprocessing.Process(target=self.loadJobs, args=())
         t.start()
-
-        for work in range(0, 1):
+        numProcesses = 40
+        for work in range(0, numProcesses):
             worker = multiprocessing.Process(target=self.processJobs, args=(self.jobs,))
             worker.start()
             worker.join()
