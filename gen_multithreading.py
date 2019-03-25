@@ -8,11 +8,11 @@ import itertools
 import csv
 import sys
 
-class MMChallengeThreaded:
+class MMChallengeThreading:
     def __init__(self):
         self.q = Queue()
         self.outfile = 'data.csv'
-        self.outsize = 500 # MB
+        self.outsize = 50 # MB
         self.file = open(self.outfile, 'w')
         self.finished = False
         self.start = 0
@@ -24,7 +24,6 @@ class MMChallengeThreaded:
         string2 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
         data = [str(count), str(random.randint(1,10)), string1, string2]
         return ','.join(data) + '\n'
-        #return data
 
     def makeRows(self, start, end):
         temp = ''
@@ -34,7 +33,6 @@ class MMChallengeThreaded:
 
     def run(self):
         while (os.path.getsize(self.outfile)//1024**2) < self.outsize:
-
                 t = Thread(target = self.makeRows, args=(self.start, self.end,))
                 self.start = self.end 
                 self.end += self.offset
@@ -47,7 +45,7 @@ if __name__ == '__main__':
     print("Generating File...")
     start_time = time.time()
 
-    mm = MMChallengeThreaded()
+    mm = MMChallengeThreading()
     mm.run()
     
 

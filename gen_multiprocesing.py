@@ -10,7 +10,7 @@ import sys
 import multiprocessing
 
 finished = multiprocessing.Value('i', False)
-class MMChallengeProcess:
+class MMChallengeProcessing:
     def __init__(self):
         self.jobs = multiprocessing.Queue()
         self.outfile = 'data.csv'
@@ -21,14 +21,15 @@ class MMChallengeProcess:
         self.end = 20000
         self.offset = 20000
 
-    ''' Function to generate row specified in document '''
+    ''' Function to generate row specified in document, returns string with newline '''
     def generateRow(self, count):
         string1 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
         string2 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
         data = [str(count), str(random.randint(1,10)), string1, string2]
         return ','.join(data) + '\n'
 
-    ''' Generates data for range of primary keys given. For example, if 2000, 4000 are used, 
+
+    ''' Generates and writes data for range of primary keys given. For example, if 2000, 4000 are used, 
         function will generate 2000 rows starting with id 2000 and ending at 40000. 
     '''
     def calculateAndWrite(self, start, end):
@@ -63,16 +64,17 @@ class MMChallengeProcess:
         t = multiprocessing.Process(target=self.loadJobs, args=())
         t.start()
 
-        for work in range(0, 30):
+        for work in range(0, 1):
             worker = multiprocessing.Process(target=self.processJobs, args=(self.jobs,))
             worker.start()
+            worker.join()
            
         
 if __name__ == '__main__':
     print("Generating File...")
     start_time = time.time()
 
-    mm = MMChallengeProcess()
+    mm = MMChallengeProcessing()
     mm.run()
    
 
