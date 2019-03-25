@@ -17,7 +17,7 @@ class MMChallenge:
 
 
    ''' Simple utility function to generate a row of data in specified format '''
-   def generate_row(self, count, return_type=''):
+   def generate_row(self, count):
       string1 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
       string2 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
       data = [str(self.rowcount), str(random.randint(1,10)), string1, string2]
