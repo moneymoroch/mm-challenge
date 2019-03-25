@@ -31,8 +31,8 @@ class MMChallengeProcessing:
         return ','.join(data) + '\n'
 
 
-    ''' Generates and writes data for range of primary keys given. For example, if 2000, 4000 are used, 
-        function will generate 2000 rows starting with id 2000 and ending at 40000. 
+    ''' Generates and writes data for range of primary keys given. For example, if 2000, 4000 are passed as arguments, 
+        function will generate 2000 rows starting with id 2000 and ending at 4000. 
     '''
     def calculateAndWrite(self, start, end):
             temp = ''
