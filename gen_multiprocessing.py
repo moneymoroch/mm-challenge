@@ -8,8 +8,8 @@ import itertools
 import csv
 import sys
 import multiprocessing
-
 finished = multiprocessing.Value('i', False)
+
 class MMChallengeProcessing:
     def __init__(self):
         self.jobs = multiprocessing.Queue()
@@ -34,8 +34,8 @@ class MMChallengeProcessing:
     '''
     def calculateAndWrite(self, start, end):
             temp = ''
-            for i in range(start, end):
-                temp += (self.generateRow(i))
+            for index in range(start, end):
+                temp += (self.generateRow(index))
             self.file.write(temp)
 
     ''' Pops jobs off queue to process '''     
@@ -63,7 +63,7 @@ class MMChallengeProcessing:
     def run(self):
         t = multiprocessing.Process(target=self.loadJobs, args=())
         t.start()
-        numProcesses = 40
+        numProcesses = 30
         for work in range(0, numProcesses):
             worker = multiprocessing.Process(target=self.processJobs, args=(self.jobs,))
             worker.start()

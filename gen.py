@@ -11,12 +11,12 @@ class MMChallenge:
    ''' Constructor '''
    def __init__(self):
       self.outfile = 'data.csv'
-      self.outsize = 1000# In Megabytes
+      self.outsize = 100 # In Megabytes
       self.rowcount = 0
       self.firstrow = True
 
 
-   ''' Simple utility function to generate a row of data in specified format in either '''
+   ''' Simple utility function to generate a row of data in specified format '''
    def generate_row(self, count, return_type=''):
       string1 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
       string2 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
@@ -44,7 +44,7 @@ class MMChallenge:
 
    ''' Attempt to speed up writes by batching them ''' 
    def generate_file_in_chunks(self):
-      temp = ''
+      buffer = ''
       with open(self.outfile, 'w') as file:
          while (os.path.getsize(self.outfile)//2**20) < self.outsize:
              
@@ -54,17 +54,20 @@ class MMChallenge:
                self.firstrow = False
 
             data = self.generate_row(self.rowcount)
-            temp += ','.join(data) + '\n'
+            buffer += ','.join(data) + '\n'
             self.rowcount += 1
             
             ''' After rowcount reaches threshold, make bulk write '''
             if self.rowcount % 10000 == 0:
                #print('Batch Writing')
-               file.write(temp)
-               temp = ''
+               file.write(buffer)
+               buffer = ''
 
 
-   ''' Function that uses stdout to write to file. '''
+   ''' Function that uses stdout to write to file.
+       This is sort of odd, but I noticed some speed up for small 
+       file sizes. 
+   '''
    def generate_pipe_output(self):
 
       ''' Set stdout to file, anything printed will br written to file '''
