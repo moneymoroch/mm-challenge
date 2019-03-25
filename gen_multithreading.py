@@ -1,3 +1,8 @@
+'''
+Ignore this file, still a work in progress
+
+'''
+
 from queue import Queue
 import os
 import random
@@ -11,7 +16,7 @@ import sys
 class MMChallengeThreading:
     def __init__(self):
         self.q = Queue()
-        self.outfile = 'data.csv'
+        self.outfile = 'source.csv'
         self.outsize = 50 # MB
         self.file = open(self.outfile, 'w')
         self.finished = False

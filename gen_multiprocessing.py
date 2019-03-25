@@ -15,8 +15,8 @@ finished = multiprocessing.Value('i', False)
 class MMChallengeProcessing:
     def __init__(self):
         self.jobs = multiprocessing.Queue()
-        self.outfile = 'data.csv'
-        self.outsize = 1000 # MB
+        self.outfile = 'source.csv'
+        self.outsize = 100 # MB
         self.file = open(self.outfile, 'w')
     
         self.start = 0
