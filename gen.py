@@ -11,7 +11,7 @@ class MMChallenge:
    ''' Constructor '''
    def __init__(self):
       self.outfile = 'source.csv'
-      self.outsize = 100 # In Megabytes
+      self.outsize = 10 # In Megabytes
       self.rowcount = 0
       self.firstrow = True
 
