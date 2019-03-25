@@ -48,13 +48,14 @@ class MMChallengeProcessing:
             self.calculateAndWrite(start, end)
 
 
-    ''' Worker that will continuosly add chunks of primary id's to calculate until file size if reached '''
+    ''' Worker that will continuously add chunks of primary id's to calculate until file size if reached '''
     def loadJobs(self):
         while (os.path.getsize(self.outfile)//1024**2) < self.outsize:
                 self.jobs.put([self.start, self.end])
                 self.start = self.end 
                 self.end += self.offset
 
+        ''' When threshold is reached, set finished to True to stop processing jobs '''
         with finished.get_lock():
             finished.value = True
 
@@ -63,8 +64,11 @@ class MMChallengeProcessing:
 
     ''' Main function '''
     def run(self):
+        ''' Start pushing jobs to queue '''
         t = multiprocessing.Process(target=self.loadJobs, args=())
         t.start()
+        
+        ''' Process jobs and write to file '''
         numProcesses = 30
         for work in range(0, numProcesses):
             worker = multiprocessing.Process(target=self.processJobs, args=(self.jobs,))
