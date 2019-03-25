@@ -1,7 +1,7 @@
 # mm-challenge
 
-##To Generate File 
+#To Generate CSV
 - python3 gen.py
 
-##To Generate File stats
+#To Generate File stats
 - python3 generate_stats.py
