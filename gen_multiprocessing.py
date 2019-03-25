@@ -64,6 +64,10 @@ class MMChallengeProcessing:
 
     ''' Main function '''
     def run(self):
+
+        ''' Write Header Row '''
+        self.file.write('id,integer1,string1,string2\n') 
+
         ''' Start pushing jobs to queue '''
         t = multiprocessing.Process(target=self.loadJobs, args=())
         t.start()
