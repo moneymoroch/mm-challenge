@@ -14,7 +14,7 @@ class MMChallengeProcess:
     def __init__(self):
         self.jobs = multiprocessing.Queue()
         self.outfile = 'data.csv'
-        self.outsize = 200 # MB
+        self.outsize = 100 # MB
         self.file = open(self.outfile, 'w')
     
         self.start = 0
@@ -41,8 +41,7 @@ class MMChallengeProcess:
     def processJobs(self, jobs):
         while not self.jobs.empty() and not bool(finished.value):
             window = self.jobs.get()
-            start = window[0]
-            end = window[1]
+            start, end = window
             self.calculateAndWrite(start, end)
 
 

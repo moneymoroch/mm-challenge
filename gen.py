@@ -16,26 +16,26 @@ class MMChallenge:
       self.firstrow = False
 
 
-   ''' Simple function to generate a row of data in specified format '''
-   def generate_row(self, count, return_type='string'):
+   ''' Simple utility function to generate a row of data in specified format '''
+   def generate_row(self, count, return_type='list'):
       string1 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
       string2 = ''.join(random.choices(string.ascii_lowercase, k=random.randint(1,32)))
       data = [str(self.rowcount), str(random.randint(1,10)), string1, string2]
 
-      if return_type == 'array':
+      if return_type == 'list':
          return data
       else:
          return ','.join(data)
 
 
-   ''' Most Simple Implementation '''
+   ''' Most Simple Implementation using CSV writer '''
    def simple_generate_file(self):
       ''' Open File and Use CSV Writer module'''
       with open(self.outfile, 'w') as csvfile:
          wtr = csv.writer(csvfile)
 
-         ''' If current file size less than desired size, generate data and write to row '''
-         while (os.path.getsize(self.outfile)//2^20) < self.outsize:
+         ''' If current file size less than desired size, keep generating data and write to row '''
+         while (os.path.getsize(self.outfile)//1024**2) < self.outsize:
             wtr.writerow(self.generate_row(self.rowcount)) 
             self.rowcount += 1
    
@@ -77,7 +77,7 @@ if __name__ == '__main__':
    start_time = time.time()
 
    mm = MMChallenge()
-   mm.generate_pipe_output()
+   mm.simple_generate_file()
 
    print("--- %s seconds ---" % (time.time() - start_time))
 
