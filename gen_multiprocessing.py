@@ -9,6 +9,7 @@ import csv
 import sys
 import multiprocessing
 
+''' Shared variable among processes to signal program termination '''
 exit_flag = multiprocessing.Value('i', 0)
 
 class MMChallengeProcessing:
