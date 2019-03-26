@@ -9,19 +9,18 @@ import csv
 import sys
 import multiprocessing
 
-''' Shared boolean among processes '''
-finished = multiprocessing.Value('i', False)
-
+exit_flag = multiprocessing.Value('i', 0)
 class MMChallengeProcessing:
     def __init__(self):
-        self.jobs = multiprocessing.Queue()
+        self.jobqueue = multiprocessing.Queue()
         self.outfile = 'source.csv'
-        self.outsize = 10 # MB
+        self.outsize = 5 # MB
         self.file = open(self.outfile, 'w')
     
         self.start = 0
         self.end = 2000
         self.offset = 2000
+        self.lock = multiprocessing.Lock()
 
     ''' Function to generate row specified in document, returns string with newline '''
     def generateRow(self, count):
@@ -42,25 +41,31 @@ class MMChallengeProcessing:
 
     ''' Pops jobs off queue to process '''     
     def processJobs(self, jobs):
-        while not self.jobs.empty() and not bool(finished.value):
-            window = self.jobs.get()
+        while True:
+            window = self.jobqueue.get()
             start, end = window
             self.calculateAndWrite(start, end)
+            if exit_flag.value == 1:
+                break
 
 
     ''' Worker that will continuously add chunks of primary id's to calculate until file size if reached '''
-    def loadJobs(self):
+    def loadJobs(self, lock):
         while (os.path.getsize(self.outfile)//1024**2) < self.outsize:
-                self.jobs.put([self.start, self.end])
+                self.jobqueue.put([self.start, self.end])
                 self.start = self.end 
                 self.end += self.offset
 
-        ''' When threshold is reached, set finished to True to stop processing jobs '''
-        with finished.get_lock():
-            finished.value = True
-
+        
         print("--- %s seconds ---" % (time.time() - start_time))
-        sys.exit()
+
+        print("Cleaning up queue to exit")
+        with multiprocessing.Lock():
+            exit_flag.value += 1
+            while not self.jobqueue.empty():
+                self.jobqueue.get()
+    
+        
 
     ''' Main function '''
     def run(self):
@@ -69,13 +74,13 @@ class MMChallengeProcessing:
         self.file.write('id,integer1,string1,string2\n') 
 
         ''' Start pushing jobs to queue '''
-        t = multiprocessing.Process(target=self.loadJobs, args=())
+        t = multiprocessing.Process(target=self.loadJobs, args=(self.lock, ))
         t.start()
         
         ''' Process jobs and write to file '''
-        numProcesses = 30
+        numProcesses = 3
         for work in range(0, numProcesses):
-            worker = multiprocessing.Process(target=self.processJobs, args=(self.jobs,))
+            worker = multiprocessing.Process(target=self.processJobs, args=(self.jobqueue,))
             worker.start()
             worker.join()
            
