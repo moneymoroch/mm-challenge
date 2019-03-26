@@ -1,3 +1,4 @@
+''' cat source.csv | python3 generate_stats.py '''
 import sys
 import time
 import collections
