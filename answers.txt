@@ -58,3 +58,7 @@
                 Writing 9.csv.gz
                 Writing 10.csv.gz
                 --- 81.30534887313843 seconds ---
+
+[+] S3 Bucket
+       
+        https://s3.us-east-2.amazonaws.com/mm-challenge/1.csv.gz
