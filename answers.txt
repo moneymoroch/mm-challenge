@@ -1,0 +1,42 @@
+How many rows did you generate? Why?
+    The program gen.py writes rows dynamically based on the current file size until the desired size is reached. Thus
+    the amount of rows will likely be different each run since the rows are random data.
+
+What is the content of the last row? How can you easily find this?
+    From linux/mac command line, tail -n 1 source.csv 
+
+What is the distribution of integer1? Which is most common?
+    - Most common is 8 with 2363023 occurences
+    - via generate_stats.py
+        int1, frequency
+        (8, 2363023)
+        (4, 2361778)
+        (9, 2359985)
+        (2, 2358769)
+        (5, 2356318)
+        (3, 2357820)
+        (1, 2361097)
+        (10, 2359610)
+        (7, 2362930)
+        (6, 2358670)
+
+
+Which row has the most vowels (considering Columns string1 and string2)?
+    - via generate_stats.py
+    Row 12819653 has the most vowels with the string 'oidohxaoouaoteeodasnaeeywbutvooa'
+    
+    ['12819653', '9', 'oidohxaoouaoteeodasnaeeywbutvooa', 'ihhxcucpgeeywzejsrammwwbainj']
+
+
+How large is a compressed (gzip) version of this file?
+
+    ubuntu@ip-172-31-47-13:~/mm-challenge$ du -h source.csv.gz 
+    606M	source.csv.gz
+
+How long did the compression process take?
+
+    ubuntu@ip-172-31-47-13:~/mm-challenge$ time gzip -f source.csv
+    real	1m2.844s
+    user	1m1.473s
+    sys	0m0.916s
+
