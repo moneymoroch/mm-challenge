@@ -78,7 +78,7 @@ class MMChallengeProcessing:
         t.start()
         
         ''' Process jobs and write to file '''
-        numProcesses = 3
+        numProcesses = 25
         for work in range(0, numProcesses):
             worker = multiprocessing.Process(target=self.processJobs, args=(self.jobqueue,))
             worker.start()
