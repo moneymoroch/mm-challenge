@@ -53,11 +53,12 @@ class MMChallenge:
                file.write('id,integer1,string1,string2\n') 
                self.firstrow = False
 
+            ''' Write data to buffer '''
             data = self.generate_row(self.rowcount)
             buffer += ','.join(data) + '\n'
             self.rowcount += 1
             
-            ''' After rowcount reaches threshold, make bulk write '''
+            ''' After rowcount reaches threshold, make bulk write and clear buffer '''
             if self.rowcount % 10000 == 0:
                #print('Batch Writing')
                file.write(buffer)
