@@ -50,7 +50,7 @@ class MMChallengeProcessing:
                 break
 
 
-    ''' Worker that will continuously add chunks of primary id's to calculate until file size if reached '''
+    ''' Worker that will continuously add chunks of primary id's to calculate until file size is reached '''
     def loadJobs(self, lock):
         while (os.path.getsize(self.outfile)//1024**2) < self.outsize:
                 self.jobqueue.put([self.start, self.end])
