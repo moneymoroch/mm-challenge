@@ -1,6 +1,7 @@
 import gzip
 import os
 import math
+import time 
 
 class MMSplitter:
 
@@ -27,5 +28,10 @@ class MMSplitter:
                 
 
 if __name__ == '__main__':
+    print("Splitting File...")
+    start_time = time.time()
+
     splitter = MMSplitter()
     splitter.split_file()
+
+    print("--- %s seconds ---" % (time.time() - start_time))
