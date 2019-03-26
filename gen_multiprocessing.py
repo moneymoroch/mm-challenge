@@ -65,7 +65,8 @@ class MMChallengeProcessing:
             while not self.jobqueue.empty():
                 self.jobqueue.get()
     
-        
+        ''' Close file '''
+        self.file.close()
 
     ''' Main function '''
     def run(self):
