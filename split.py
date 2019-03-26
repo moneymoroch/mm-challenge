@@ -13,11 +13,12 @@ class MMSplitter:
 
 
     def split_file(self):
-
         ''' Calculate sizes of new files (source size / number of splits)'''
         chunk_size = math.ceil(self.source_file_size/10)
        
+        ''' Open source file '''
         with gzip.open(self.source_file, 'rb') as source:
+
             for chunk in range(1, (self.num_files + 1)):
                 fname = '{}.csv.gz'.format(chunk)
                 print('Writing {}'.format(fname))
