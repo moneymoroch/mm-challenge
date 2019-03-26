@@ -1,5 +1,8 @@
-
-#cat source.csv | python3 generate_stats.py 
+'''
+Program takes piped input from source.csv and calculates specified stats
+To run:
+    cat source.csv | python3 generate_stats.py
+'''
 import sys
 import time
 import collections
