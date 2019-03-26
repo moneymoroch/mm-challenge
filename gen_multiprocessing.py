@@ -10,6 +10,7 @@ import sys
 import multiprocessing
 
 exit_flag = multiprocessing.Value('i', 0)
+
 class MMChallengeProcessing:
     def __init__(self):
         self.jobqueue = multiprocessing.Queue()
