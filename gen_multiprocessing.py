@@ -14,7 +14,7 @@ class MMChallengeProcessing:
     def __init__(self):
         self.jobqueue = multiprocessing.Queue()
         self.outfile = 'source.csv'
-        self.outsize = 5 # MB
+        self.outsize = 10 # MB
         self.file = open(self.outfile, 'w')
     
         self.start = 0
