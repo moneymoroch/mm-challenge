@@ -57,7 +57,8 @@ if __name__ == '__main__':
         integer1 = line[1]
         dist[integer1] += 1
 
-        ''' If length of string less than max_vowels, dont waste time computing since it cant be greater'''
+        ''' If length of string less than max_vowels, 
+            dont waste time computing since it cant be greater even if all vowels'''
         if len(line[2]) > max_vowels: 
             if compare_vowels(line[2]):
                 row_with_most_vowels = line
