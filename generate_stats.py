@@ -30,11 +30,14 @@ def compare_vowels(string):
 
 ''' Print summary of data '''
 def print_summary():
+    print('-------------------------------')
     print('[+] Distribution of Integer 1')
     for k, v in dist.items():
-        print(k, v)
-    print
-    print('[+] Row with most vowels: {} ').format(row_with_most_vowels),
+        print('{}: {}'.format(k,v))
+    print('-------------------------------\n')
+    print('[+] Row with most vowels: {} '.format(row_with_most_vowels[0]))
+    print(row_with_most_vowels)
+    print('-------------------------------\n')
 
 
 if __name__ == '__main__':
