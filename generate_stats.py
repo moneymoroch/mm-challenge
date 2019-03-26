@@ -34,8 +34,7 @@ def print_summary():
     for k, v in dist.items():
         print(k, v)
     print
-    print('[+] Row with most vowels: '),
-    print(row_with_most_vowels)
+    print('[+] Row with most vowels: {} ').format(row_with_most_vowels),
 
 
 if __name__ == '__main__':

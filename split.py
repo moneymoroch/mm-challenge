@@ -8,6 +8,7 @@ class MMSplitter:
     def __init__(self):
         self.source_file = 'source.csv.gz'
         self.source_file_size = os.path.getsize(self.source_file)
+        self.num_files = 10
 
 
     def split_file(self):
@@ -16,10 +17,11 @@ class MMSplitter:
         chunk_size = math.ceil(self.source_file_size/10)
        
         with gzip.open(self.source_file, 'rb') as source:
-            for chunk in range(1, 11):
+            for chunk in range(1, (self.num_files + 1)):
                 fname = '{}.csv.gz'.format(chunk)
                 print('Writing {}'.format(fname))
 
+                ''' Open Nth file and write next chunk '''
                 with gzip.open(fname,'wb') as newfile:
                     newfile.write(source.read(chunk_size))
                 
