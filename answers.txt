@@ -1,11 +1,13 @@
-How many rows did you generate? Why?
+[+] How many rows did you generate? Why?
     The program gen.py writes rows dynamically based on the current file size until the desired size is reached. Thus
-    the amount of rows will likely be different each run since the rows are random data.
+    the amount of rows will almost always be different each run since the contents of the rows are random. 
 
-What is the content of the last row? How can you easily find this?
-    From linux/mac command line, tail -n 1 source.csv 
+[+] What is the content of the last row? How can you easily find this?
+    - From linux/mac command line:
+        ubuntu@ip-172-31-47-13:~/mm-challenge$ tail -n 1 source.csv 
+        23599999,9,ndyqaf,kmti
 
-What is the distribution of integer1? Which is most common?
+[+] What is the distribution of integer1? Which is most common?
     - Most common is 8 with 2363023 occurences
     - via generate_stats.py
         int1, frequency
@@ -20,20 +22,19 @@ What is the distribution of integer1? Which is most common?
         (7, 2362930)
         (6, 2358670)
 
-
-Which row has the most vowels (considering Columns string1 and string2)?
-    - via generate_stats.py
+[+] Which row has the most vowels (considering Columns string1 and string2)?
+    - Via generate_stats.py:
     Row 12819653 has the most vowels with the string 'oidohxaoouaoteeodasnaeeywbutvooa'
     
     ['12819653', '9', 'oidohxaoouaoteeodasnaeeywbutvooa', 'ihhxcucpgeeywzejsrammwwbainj']
 
 
-How large is a compressed (gzip) version of this file?
+[+] How large is a compressed (gzip) version of this file?
 
     ubuntu@ip-172-31-47-13:~/mm-challenge$ du -h source.csv.gz 
     606M	source.csv.gz
 
-How long did the compression process take?
+[+] How long did the compression process take?
 
     ubuntu@ip-172-31-47-13:~/mm-challenge$ time gzip -f source.csv
     real	1m2.844s
