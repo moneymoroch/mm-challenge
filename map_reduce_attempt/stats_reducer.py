@@ -16,18 +16,6 @@ def count_vowels(string):
 
     return vowels
 
-def processChunk(data):
-    max_vowels = 0
-    max_vowels_row = []
-    for row in data:
-        v_count = count_vowels(row[2])
-        if v_count > max_vowels:
-            max_vowels = v_count
-            max_vowels_row = row
-
-    print(row)
-
-
 
 if __name__ == '__main__':
     max_vowels = 0
