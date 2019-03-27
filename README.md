@@ -25,7 +25,7 @@ tail -n 1 source.csv
 ```
 
 ### What is the distribution of integer1? Which is most common?
-Most common is 8 with 2363023 occurences, from summary of program output. 
+Most common is 8 with 2363023 occurences, from summary of program output
 ``` 
 cat source.csv | python3 generate_stats.py
  
