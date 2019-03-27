@@ -1,3 +1,5 @@
+[+] See README.md for formatted version [+]
+
 [+] How many rows did you generate? Why?
         - 23599999 rows
                 The program gen.py writes rows dynamically based on the current file size until the desired size is reached. Thus
