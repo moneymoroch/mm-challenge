@@ -1,7 +1,7 @@
 '''
 Attemt to speed up calculation of integer distribution and vowel count by simulating a mapreduce job.
 Tried spawning a process every few thousands rows and piping max vowels of each process to stats_reducer.py. 
-Ultimately, this didnt speed it up, although computatations are dont in parallel, the CSV read is not, and the speed
+Ultimately, this didnt speed it up, although computatations are done in parallel, the CSV read is not, and the speed
 is bounded by this. 
 
 I think you'd need to split the csv up first to actually read in parallel, or just use HDFS. 
