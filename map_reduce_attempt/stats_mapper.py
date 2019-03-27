@@ -23,7 +23,7 @@ def count_vowels(string):
 
     return vowels
 
-def processChunk(data):
+def process_chunk(data):
     max_vowels = 0
     row_with_most_vowels = []
     for row in data:
@@ -56,6 +56,6 @@ if __name__ == '__main__':
         if linecount == 5000:
             linecount = 0
             processChunk(data)
-            multiprocessing.Process(target=processChunk, args=(data,)).start()
+            multiprocessing.Process(target=process_chunk, args=(data,)).start()
             data = []
 
