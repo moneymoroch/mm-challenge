@@ -1,5 +1,5 @@
 '''
-Attempt to count vowels by creating catching input from mapper.py
+Attempt to count vowels by creating catching input from stats_mapper.py
 cat source.csv | python3 stats_mapper.py | python3 stats_reducer.py
 '''
 import sys
