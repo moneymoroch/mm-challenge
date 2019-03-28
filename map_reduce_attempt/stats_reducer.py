@@ -21,19 +21,21 @@ if __name__ == '__main__':
     max_vowels = 0
     row_with_most_vowels = []
     for line in sys.stdin:
-        
-        line = line.strip()
-        line = line.split(",")
+        print(line)
+        try:
+            line = line.strip()
+            line = line.split(",")
 
-        if len(line[2]) > max_vowels: 
-            if count_vowels(line[2]) > max_vowels:
-                row_with_most_vowels = line
+            if len(line[2]) > max_vowels: 
+                if count_vowels(line[2]) > max_vowels:
+                    row_with_most_vowels = line
 
-        if len(line[3]) > max_vowels: 
-            if count_vowels(line[3]) > max_vowels:
-                row_with_most_vowels = line
+            if len(line[3]) > max_vowels: 
+                if count_vowels(line[3]) > max_vowels:
+                    row_with_most_vowels = line
 
-
+        except Exception as e:
+            pass
   
   
     print(row_with_most_vowels)

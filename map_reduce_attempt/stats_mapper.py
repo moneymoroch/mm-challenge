@@ -7,7 +7,7 @@ is bounded by this.
 I think you'd need to split the csv up first to actually read in parallel, or just use HDFS. 
 https://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/
 
-cat source.csv | python3 stats_mapper.py | python3 stats_reducer.py
+cat source.csv | python3 map_reduce_attempt/stats_mapper.py | python3 map_reduce_attempt/stats_reducer.py
 '''
 import sys
 import time
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
         if linecount == 5000:
             linecount = 0
-            processChunk(data)
-            multiprocessing.Process(target=process_chunk, args=(data,)).start()
+            process_chunk(data)
+            #multiprocessing.Process(target=process_chunk, args=(data,)).start()
             data = []
 
