@@ -86,7 +86,7 @@ class MMChallengeProcessing:
 
         ''' Write Header Row '''
         self.file.write('id,integer1,string1,string2\n') 
-        ''' Flush to Avoid rewrite of header '''
+        ''' Flush to avoid rewrite of header '''
         self.file.flush()
             
         ''' Start pushing jobs to queue '''
