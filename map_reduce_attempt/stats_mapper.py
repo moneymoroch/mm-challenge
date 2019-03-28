@@ -1,4 +1,12 @@
 '''
+Attemt to speed up calculation of integer distribution and vowel count by simulating a mapreduce job.
+Tried spawning a process every few thousands rows and piping max vowels of each process to stats_reducer.py. 
+Ultimately, this didnt speed it up, although computatations are done in parallel, the CSV read is not, and the speed
+is bounded by this. 
+
+I think you'd need to split the csv up first to actually read in parallel, or just use HDFS. 
+https://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/
+
 cat source.csv | python3 stats_mapper.py | python3 stats_reducer.py
 '''
 import sys
@@ -15,7 +23,7 @@ def count_vowels(string):
 
     return vowels
 
-def processChunk(data):
+def process_chunk(data):
     max_vowels = 0
     row_with_most_vowels = []
     for row in data:
@@ -48,6 +56,6 @@ if __name__ == '__main__':
         if linecount == 5000:
             linecount = 0
             processChunk(data)
-            multiprocessing.Process(target=processChunk, args=(data,)).start()
+            multiprocessing.Process(target=process_chunk, args=(data,)).start()
             data = []
 
