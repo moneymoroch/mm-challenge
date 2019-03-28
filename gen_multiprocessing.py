@@ -44,7 +44,7 @@ class MMChallengeProcessing:
                 for index in range(start, end):
                     temp += (self.generateRow(index))
 
-                ''' Loop until last line meets start variable. Write and return '''
+                ''' Loop until last line meets global start variable. Write and return '''
                 while True:
                     if exit_flag.value == 1:
                         break
