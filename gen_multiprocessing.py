@@ -11,12 +11,14 @@ import multiprocessing
 
 ''' Shared variable among processes to signal program termination '''
 exit_flag = multiprocessing.Value('i', 0)
+''' Shared variable among processes to sync last row '''
+last_line = multiprocessing.Value('i', 0)
 
 class MMChallengeProcessing:
     def __init__(self):
         self.jobqueue = multiprocessing.Queue()
         self.outfile = 'source.csv'
-        self.outsize = 10 # MB
+        self.outsize = 50 # MB
         self.file = open(self.outfile, 'w')
     
         self.start = 0
@@ -36,10 +38,21 @@ class MMChallengeProcessing:
         function will generate 2000 rows starting with id 2000 and ending at 4000. 
     '''
     def calculateAndWrite(self, start, end):
-            temp = ''
-            for index in range(start, end):
-                temp += (self.generateRow(index))
-            self.file.write(temp)
+
+                ''' Generate Data '''
+                temp = ''
+                for index in range(start, end):
+                    temp += (self.generateRow(index))
+
+                ''' Loop until last line meets start variable. Write and return '''
+                while True:
+                    if exit_flag.value == 1:
+                        break
+                    if last_line.value == start:
+                        #print('writing {} : {}'.format(start, end))
+                        self.file.write(temp)
+                        last_line.value = end
+                        return
 
     ''' Pops jobs off queue to process '''     
     def processJobs(self, jobs):
@@ -81,11 +94,10 @@ class MMChallengeProcessing:
         t.start()
         
         ''' Process jobs and write to file '''
-        numProcesses = 25
+        numProcesses = 40
         for work in range(0, numProcesses):
             worker = multiprocessing.Process(target=self.processJobs, args=(self.jobqueue,))
             worker.start()
-            worker.join()
            
         
 if __name__ == '__main__':
