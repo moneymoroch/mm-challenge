@@ -18,7 +18,7 @@ class MMChallengeProcessing:
     def __init__(self):
         self.jobqueue = multiprocessing.Queue()
         self.outfile = 'source.csv'
-        self.outsize = 50 # MB
+        self.outsize = 10 # MB
         self.file = open(self.outfile, 'w')
     
         self.start = 0
@@ -71,7 +71,7 @@ class MMChallengeProcessing:
                 self.start = self.end 
                 self.end += self.offset
 
-        
+       
         print("--- %s seconds ---" % (time.time() - start_time))
 
         print("Cleaning up queue to exit")
@@ -79,16 +79,16 @@ class MMChallengeProcessing:
             exit_flag.value += 1
             while not self.jobqueue.empty():
                 self.jobqueue.get()
-    
-        ''' Close file '''
-        self.file.close()
+
 
     ''' Main function '''
     def run(self):
 
         ''' Write Header Row '''
         self.file.write('id,integer1,string1,string2\n') 
-
+        ''' Flush to Avoid rewrite of header '''
+        self.file.flush()
+            
         ''' Start pushing jobs to queue '''
         t = multiprocessing.Process(target=self.loadJobs, args=(self.lock, ))
         t.start()
