@@ -2,6 +2,7 @@
 Attempt to count vowels by creating catching input from stats_mapper.py
 cat source.csv | python3 stats_mapper.py | python3 stats_reducer.py
 '''
+#!/usr/bin/env python3
 import sys
 import time
 import collections
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     max_vowels = 0
     row_with_most_vowels = []
     for line in sys.stdin:
-        print(line)
+        #print(line)
         try:
             line = line.strip()
             line = line.split(",")

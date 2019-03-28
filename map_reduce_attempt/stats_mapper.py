@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 Attemt to speed up calculation of vowel count by simulating a mapreduce job. 
 
