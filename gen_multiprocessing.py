@@ -22,8 +22,8 @@ class MMChallengeProcessing:
         self.file = open(self.outfile, 'w')
     
         self.start = 0
-        self.end = 2000
-        self.offset = 2000
+        self.end = 5000
+        self.offset = 5000
         self.lock = multiprocessing.Lock()
 
     ''' Function to generate row specified in document, returns string with newline '''
@@ -94,7 +94,7 @@ class MMChallengeProcessing:
         t.start()
         
         ''' Process jobs and write to file '''
-        numProcesses = 40
+        numProcesses = 100
         for work in range(0, numProcesses):
             worker = multiprocessing.Process(target=self.processJobs, args=(self.jobqueue,))
             worker.start()
