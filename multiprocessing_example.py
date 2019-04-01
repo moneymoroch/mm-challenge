@@ -13,6 +13,23 @@ id, integer1, string1, string2
 9,  3,tmxwwpnu,rjtk
 10, 10,ucrvtiichoflgrfthicbmejy,qfpjhetpeq
 
+Sample Output:
+
+Process 2: Last line is 0,  Writing Lines 0 to 10
+Process 3: Last line is 10,  Writing Lines 10 to 20
+Process 2: I have rows 30 to 40 Current last line 20, Waiting..
+Process 4: Last line is 20,  Writing Lines 20 to 30
+Process 5: I have rows 40 to 50 Current last line 20, Waiting..
+Process 6: I have rows 50 to 60 Current last line 30, Waiting..
+Process 3: I have rows 60 to 70 Current last line 30, Waiting..
+Process 4: I have rows 70 to 80 Current last line 30, Waiting..
+Process 2: Last line is 30,  Writing Lines 30 to 40
+Process 5: I have rows 40 to 50 Current last line 30, Waiting..
+Process 2: I have rows 80 to 90 Current last line 40, Waiting..
+Process 3: I have rows 60 to 70 Current last line 40, Waiting..
+Process 4: I have rows 70 to 80 Current last line 40, Waiting..
+Process 6: I have rows 50 to 60 Current last line 40, Waiting..
+
 '''
 
 from queue import Queue
