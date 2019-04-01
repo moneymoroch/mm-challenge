@@ -1,15 +1,18 @@
 '''
-0,1,ejhscz,pkizppftralthlzzspfobywktishpdzs
-1,2,eagkrzkpyqv,zsxlplnnagmkbbssniv
-2,4,twieejamnrnawmhgomxsjgfiz,ygqbf
-3,10,rohwp,jjxbxlbzjeyjdjnscybpsezel
-4,4,telmbeeassdakvkixgivypka,xklsnjrzqspe
-5,7,enwrdzyk,s
-6,5,xbebvexptrgn,ztxbxnsxjvuolxellsthyxhrnvmpmr
-7,5,cygdkkgihf,svowxsfl
-8,2,gpnibbtftepqieoxk,mchjasdlmrzptnqakqjvmxfeinsob
-9,3,tmxwwpnu,rjtk
-10,10,ucrvtiichoflgrfthicbmejy,qfpjhetpeq
+
+id, integer1, string1, string2
+0,  1,ejhscz,pkizppftralthlzzspfobywktishpdzs
+1,  2,eagkrzkpyqv,zsxlplnnagmkbbssniv
+2,  4,twieejamnrnawmhgomxsjgfiz,ygqbf
+3,  10,rohwp,jjxbxlbzjeyjdjnscybpsezel
+4,  4,telmbeeassdakvkixgivypka,xklsnjrzqspe
+5,  7,enwrdzyk,s
+6,  5,xbebvexptrgn,ztxbxnsxjvuolxellsthyxhrnvmpmr
+7,  5,cygdkkgihf,svowxsfl
+8,  2,gpnibbtftepqieoxk,mchjasdlmrzptnqakqjvmxfeinsob
+9,  3,tmxwwpnu,rjtk
+10, 10,ucrvtiichoflgrfthicbmejy,qfpjhetpeq
+
 '''
 
 from queue import Queue
@@ -21,7 +24,6 @@ import itertools
 import multiprocessing
 
 exit_flag = multiprocessing.Value('i', 0)
-
 last_line = multiprocessing.Value('i', 0)
 
 jobqueue = multiprocessing.Queue()
@@ -37,11 +39,11 @@ def calculateAndWrite(start, end):
 
     while True:
         if last_line.value == start:
-            print('Process {}: Writing Lines {} to {}'.format(pid, start, end))
+            print('Process {}: Last line is {},  Writing Lines {} to {}'.format(pid, last_line.value, start, end))
             last_line.value = end
             return
         else:
-            print('Process {}: Current last line {}, Waiting..'.format(pid, last_line.value))
+            print('Process {}: I have rows {} to {} Current last line {}, Waiting..'.format(pid, start, end, last_line.value))
 
         time.sleep(1)
         
