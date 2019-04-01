@@ -1,3 +1,17 @@
+'''
+0,1,ejhscz,pkizppftralthlzzspfobywktishpdzs
+1,2,eagkrzkpyqv,zsxlplnnagmkbbssniv
+2,4,twieejamnrnawmhgomxsjgfiz,ygqbf
+3,10,rohwp,jjxbxlbzjeyjdjnscybpsezel
+4,4,telmbeeassdakvkixgivypka,xklsnjrzqspe
+5,7,enwrdzyk,s
+6,5,xbebvexptrgn,ztxbxnsxjvuolxellsthyxhrnvmpmr
+7,5,cygdkkgihf,svowxsfl
+8,2,gpnibbtftepqieoxk,mchjasdlmrzptnqakqjvmxfeinsob
+9,3,tmxwwpnu,rjtk
+10,10,ucrvtiichoflgrfthicbmejy,qfpjhetpeq
+'''
+
 from queue import Queue
 import os
 import random
@@ -12,8 +26,8 @@ last_line = multiprocessing.Value('i', 0)
 
 jobqueue = multiprocessing.Queue()
 start = 0
-end = 5000
-offset = 5000
+end = 10
+offset = 10
 lock = multiprocessing.Lock()
 
 def calculateAndWrite(start, end):
